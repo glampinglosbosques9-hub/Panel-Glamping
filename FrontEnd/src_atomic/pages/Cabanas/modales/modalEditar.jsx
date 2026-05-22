@@ -14,15 +14,21 @@ const TabsContainer = styled.div`
 
 const TabButton = styled.button`
   padding: 8px 16px;
-  background-color: transparent;
-  color: #151515ff;
+  background-color: #637856ff;
   border: none;
+  border-radius: 5px;
   border-bottom: ${props => props.active ? "3px solid #4A90E2" : "none"};
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
   &:hover {
-    color: #4A90E2;
+    background-color: #36422fff;
+  }
+  &:focus {
+    background-color: #36422fff;
+  }
+  &:active {
+    background-color: #36422fff;
   }
 `;
 

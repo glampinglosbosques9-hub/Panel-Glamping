@@ -50,6 +50,14 @@ export const createCabinDamage = async (req, res) => {
             responsable
         ]);
 
+        const fecha_mantenimiento = fechaarreglo;
+        
+        await pool.query(cabinDamage.updateCabinByDamage, [
+            "Mantenimiento",
+            fecha_mantenimiento,
+            cabanaid
+        ]);
+
         await pool.query(notification.createNotification, [
             userName,
             "Daño cabaña",
@@ -86,6 +94,16 @@ export const updateCabinDamage = async (req, res) => {
             responsable,
             cabanaid
         ]);
+
+        if (estado === "Terminado") {
+            const fecha_mantenimiento = fechaarreglo;
+            
+            await pool.query(cabinDamage.updateCabinByDamage, [
+                "Disponible",
+                fecha_mantenimiento,
+                cabanaid
+            ]);
+        }
 
         if (result.rowCount === 0) {
             await pool.query("ROLLBACK");

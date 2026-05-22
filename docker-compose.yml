@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: ./BackEnd
+      dockerfile: Dockerfile
+    container_name: glamping_backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./BackEnd/.env
+    volumes:
+      - ./BackEnd:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    restart: always
+
+  frontend:
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile
+      target: build
+    container_name: glamping_frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./FrontEnd/.env
+    volumes:
+      - ./FrontEnd:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - backend
+    restart: always

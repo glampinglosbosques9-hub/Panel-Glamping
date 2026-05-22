@@ -1,8 +1,13 @@
+import { showAlert } from './alertUtils';
+
 export const deleteUtils = {  
   eliminarRegistro: async (modulo, id, nombre, onUpdate) => {
-    if (!window.confirm(
-      `¿Estás seguro de desactivar/eliminar "${nombre}"?`
-    )) return;
+    const result = await showAlert.confirm(
+      '¿Estás seguro?',
+      `¿Deseas desactivar/eliminar "${nombre}"?`,
+      'Sí, desactivar'
+    );
+    if (!result.isConfirmed) return;
 
     try {
       const userName = localStorage.getItem('userName');
@@ -18,8 +23,11 @@ export const deleteUtils = {
       });
 
       if (!res.ok) {
-        alert('Error al eliminar');
+        showAlert.error('Error', 'No se pudo desactivar el registro.');
+        return;
       }
+
+      showAlert.successToast('Desactivado correctamente');
 
       if (onUpdate) {
         onUpdate(`${import.meta.env.VITE_API_BASE_URL}/api/${modulo}`);
@@ -27,6 +35,7 @@ export const deleteUtils = {
 
     } catch (err) {
       console.error("Error en la petición:", err);
+      showAlert.error('Error', 'Hubo un error de conexión al desactivar.');
     }
   }
 }

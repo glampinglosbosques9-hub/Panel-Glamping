@@ -18,7 +18,7 @@ const ButtonAgg = styled.button`
 function BotonGeneral({ data, onClick }) {
     return(
         <ButtonAgg color={data.color} onClick={onClick}>
-            <i class={data.icon}></i>
+            <i className={data.icon}></i>
             {data.texto}
         </ButtonAgg>
     );

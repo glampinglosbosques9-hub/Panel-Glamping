@@ -12,6 +12,7 @@ import TablaGeneral from "../../components/organisms/tabla";
 
 import ModalAgregar from "./modales/modalAgregar";
 import ModalEditar from "./modales/modalEditar";
+import ModalEditarTipo from "./modales/modalEditarTipo";
 
 import PaquetesCards from "./componentsData/paquetesCards";
 import PaquetesSearch, {
@@ -71,6 +72,7 @@ function Paquetes() {
   const { data, loading, error, fetchData } = useFetch();
 
   const [paquetes, setPaquetes] = useState(null);
+  const [activeTab, setActiveTab] = useState('packages');
   const { displayData, setFilterMode, fetchFilters } = useFilters(
     data,
     paquetes,
@@ -80,7 +82,7 @@ function Paquetes() {
 
   const handleFetchData = () => {
     setPaquetes(null);
-    fetchData(`${import.meta.env.VITE_API_BASE_URL}/api/packages`);
+    fetchData(`${import.meta.env.VITE_API_BASE_URL}/api/${activeTab}`);
     fetchFilters();
     setRefreshStatsTrigger((prev) => prev + 1);
   };
@@ -102,10 +104,20 @@ function Paquetes() {
 
       <ModulosExtra>
         <button
-          onClick={() => { fetchData(`${import.meta.env.VITE_API_BASE_URL}/api/packages`); }}
+          className={activeTab === 'packages' ? 'active' : ''}
+          onClick={() => {
+            setActiveTab('packages');
+            setPaquetes(null);
+            fetchData(`${import.meta.env.VITE_API_BASE_URL}/api/packages`);
+          }}
         >paquetes</button>
         <button
-          onClick={() => { fetchData(`${import.meta.env.VITE_API_BASE_URL}/api/packages/types`); }}
+          className={activeTab === 'packages/types' ? 'active' : ''}
+          onClick={() => {
+            setActiveTab('packages/types');
+            setPaquetes(null);
+            fetchData(`${import.meta.env.VITE_API_BASE_URL}/api/packages/types`);
+          }}
         >tipos de paquetes</button>
       </ModulosExtra>
 
@@ -136,11 +148,19 @@ function Paquetes() {
         />
       )}
 
-      {modalEditarAbierto && paqueteAEditar && (
+      {modalEditarAbierto && activeTab === 'packages' && paqueteAEditar && (
         <ModalEditar
           setModalAbierto={setModalEditarAbierto}
           fetchData={handleFetchData}
           paqueteAEditar={paqueteAEditar}
+        />
+      )}
+
+      {modalEditarAbierto && activeTab === 'packages/types' && paqueteAEditar && (
+        <ModalEditarTipo
+          setModalAbierto={setModalEditarAbierto}
+          fetchData={handleFetchData}
+          tipoAEditar={paqueteAEditar}
         />
       )}
     </>

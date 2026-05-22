@@ -42,7 +42,6 @@ export default function PagosCard({ refreshTrigger }) {
 
   return (
     <>
-      {console.log(data)}
       {loading && <p>Cargando estadísticas...</p>}
       {error && <p>Error al cargar datos</p>}
       

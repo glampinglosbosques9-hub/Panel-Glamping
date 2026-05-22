@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFetch } from "./fetchConnect";
+import { showAlert } from "../utils/alertUtils";
 
 /**
  * Hook personalizado para manejar formularios, sus estados y envío al backend
@@ -68,6 +69,8 @@ export const useForm = (initialState, url, onSuccess, method = 'POST', isFormDat
       });
 
       // SI LLEGAMOS AQUÍ, ES QUE FUE EXITOSO (Status 200-299)
+      showAlert.successToast(response.message || 'Operación realizada con éxito');
+
       if (method === 'POST') {
         setFormData(initialState);
       }
@@ -76,8 +79,8 @@ export const useForm = (initialState, url, onSuccess, method = 'POST', isFormDat
       if (onSuccess) onSuccess(response); // Pasamos la respuesta (donde viene el TOKEN)
 
     } catch (err) {
-      // No hace falta hacer nada más, useFetch ya puso el error en 'submitError'
       console.error("Error al enviar formulario:", err);
+      showAlert.error('Error al enviar formulario', err.message || 'Ocurrió un error inesperado.');
     }
   };
 

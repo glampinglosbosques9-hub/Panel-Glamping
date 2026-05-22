@@ -57,6 +57,12 @@ export const packageType = {
     FROM tipo_paquete
 
   `,
+  updatePackageType: `
+    UPDATE tipo_paquete SET
+      nombre = COALESCE(NULLIF($1, ''), nombre)
+    WHERE tipo_id = $2
+    RETURNING tipo_id, nombre
+  `
 };
 
 export const packageFilters = {

@@ -29,12 +29,12 @@ function HeaderGeneral({ user, onClick }) {
   return(
     <Header>
       <div>
-        <i class="bi bi-arrow-right"></i>
+        <i className="bi bi-arrow-right"></i>
         <h3>Hola, {user}</h3>
       </div>
       <div>
         <button onClick={ onClick }>
-          <i class="bi bi-bell-fill" />
+          <i className="bi bi-bell-fill" />
         </button>
         
         <img width={'30px'} src="/images/Logo.svg" alt="" />

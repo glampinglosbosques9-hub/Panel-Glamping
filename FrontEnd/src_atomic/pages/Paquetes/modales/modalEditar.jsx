@@ -62,7 +62,7 @@ export default function ModalEditar({ setModalAbierto, fetchData, paqueteAEditar
     if (tiposData) {
       setTipos([
         { id: '', nombre: 'Selecciona un tipo de paquete...', selected: 'selected' },
-        ...tiposData.map(t => ({ id: t.id, nombre: t.nombre }))
+        ...tiposData.map(t => ({ id: t.tipo_id, nombre: t.nombre }))
       ]);
     }
   }, [tiposData]);
@@ -91,7 +91,7 @@ export default function ModalEditar({ setModalAbierto, fetchData, paqueteAEditar
   );
 
   return (
-    <ModalPlantilla modulo="editar paquete" onClose={() => setModalAbierto(false)}>
+    <ModalPlantilla titulo="Editar paquete" onClose={() => setModalAbierto(false)}>
       <Form onSubmit={(e) => handleSubmit(e, () => setModalAbierto(false))}>
         <SelectBase 
           name="cabana_id" 

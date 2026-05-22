@@ -10,6 +10,8 @@ import BotonAgregar from "../../components/atoms/buttons/botonAgregar";
 import TablaGeneral from "../../components/organisms/tabla";
 import ModalAgregar from "./modales/modalAgregar";
 import ModalEditar from "./modales/modalEditar";
+import ModalAgregarDano from "./modales/modalAgregarDano";
+import ModalEditarDano from "./modales/modalEditarDano";
 
 import CabanasCard from "./componentsData/cabanaCard";
 import Buscador, { cabinFilterConfig } from "./componentsData/cabinSearch";
@@ -155,11 +157,26 @@ function Cabanas() {
         />
       )}
 
+      {modalAbierto && activeTab === 'cabinDamage' && (
+        <ModalAgregarDano
+          setModalAbierto={setModalAbierto}
+          fetchData={handleFetchData}
+        />
+      )}
+
       {modalEditarAbierto && activeTab === 'cabins' && registroAEditar && (
         <ModalEditar
           setModalAbierto={setModalEditarAbierto}
           fetchData={handleFetchData}
           cabanaAEditar={registroAEditar}
+        />
+      )}
+
+      {modalEditarAbierto && activeTab === 'cabinDamage' && registroAEditar && (
+        <ModalEditarDano
+          setModalAbierto={setModalEditarAbierto}
+          fetchData={handleFetchData}
+          danoAEditar={registroAEditar}
         />
       )}
     </>

@@ -11,7 +11,8 @@ import {
     packageFilters,
     getPackageProducts,
     getPackageServices,
-    getPackageTypes
+    getPackageTypes,
+    updatePackageType
 } from '../controllers/package.controller.js';
 
 import { validateRules } from "../middleware/validate.middleware.js";
@@ -26,6 +27,7 @@ router.get('/', getPackages);
 router.get('/types', getPackageTypes);
 router.post('/search', getPackageByName);
 router.post('/createType', createPackageType);
+router.put('/types/:id', updatePackageType);
 router.get('/stats', getPackageStats);
 router.get('/filters', packageFilters);
 router.get('/:id', getPackageById);

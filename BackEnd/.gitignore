@@ -1,4 +1,11 @@
+.gitignore
+
 .env
 
 node_modules
 scratch/
+.agents
+
+skills-lock.json
+test.jpg
+vercel.json

@@ -91,6 +91,45 @@ export const createPackageType = async (req, res) => {
   }
 }
 
+export const updatePackageType = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre, userName } = req.body;
+
+    await pool.query("BEGIN");
+
+    const result = await pool.query(
+      packageType.updatePackageType,
+      [nombre, id]
+    );
+
+    if (result.rowCount === 0) {
+      await pool.query("ROLLBACK");
+      return res.status(404).json({ message: "El tipo de paquete no existe." });
+    }
+
+    await pool.query(notification.createNotification, [
+      userName,
+      "Paquetes",
+      `El tipo de paquete #${id} ha sido actualizado a ${nombre}`
+    ]);
+
+    await pool.query("COMMIT");
+
+    res.status(200).json({
+      message: 'Tipo de paquete actualizado',
+      tipoId: id,
+      data: result.rows[0]
+    });
+  } catch (error) {
+    await pool.query("ROLLBACK");
+    res.status(500).json({
+      message: 'Error al actualizar tipo de paquete',
+      error: error.message
+    });
+  }
+}
+
 export const updatePackage = async (req, res) => {
   try {
     const { id } = req.params;

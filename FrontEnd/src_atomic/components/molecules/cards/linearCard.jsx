@@ -20,8 +20,8 @@ const Card = styled.button`
   align-content: center;
   gap: 15px;
 
-  background: ${(props) => props.bgColor == 'verde' ? '#43523A' : '#ffffff'};
-  color: ${(props) => props.bgColor === 'verde' ? '#ffffff' : '#1a1a1a'};
+  background: ${(props) => props.$bgColor == 'verde' ? '#43523A' : '#ffffff'};
+  color: ${(props) => props.$bgColor === 'verde' ? '#ffffff' : '#1a1a1a'};
 
   &:hover {
     transform: translateY(-2px);
@@ -55,7 +55,7 @@ function LinearCard({ data }) {
   return (
     <CardsContainer>
       {data.map((item, i) => (
-        <Card key={i} bgColor={item.bgColor}>
+        <Card key={i} $bgColor={item.bgColor}>
           <CardText>{item.texto}</CardText>
           <CardTitle color={item.colorTitulo}>
             <h4>{item.titulo}</h4>

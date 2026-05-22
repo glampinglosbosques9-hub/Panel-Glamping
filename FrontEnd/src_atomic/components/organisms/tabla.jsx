@@ -118,7 +118,7 @@ function TablaGeneral({ data, acciones, onEdit, onDelete, onActive, hideActions,
                     {(() => {
                       const valor = fila[col];
                       const columnasMoneda = ["sueldo", "precio noche", "Pago restante", "monto", "total", "subtotal", "precio", "ingresos_generados"];
-                      const columnasFecha = ["actualizacion", "fecha", "fecha_mantenimiento", "fecha_registro", "llegada", "salida"];
+                      const columnasFecha = ["actualizacion", "fecha", "mantenimiento", "registro", "arreglo", "llegada", "salida"];
 
                       let formattedValue = valor;
                       if (columnasMoneda.includes(col)) {

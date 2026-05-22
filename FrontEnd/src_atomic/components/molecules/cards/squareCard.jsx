@@ -19,8 +19,8 @@ const Card = styled.button`
   box-sizing: border-box;
 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background: ${(props) => props.bgColor == 'verde' ? '#43523A' : '#ffffff'};
-  color: ${(props) => props.bgColor === 'verde' ? '#ffffff' : '#1a1a1a'};
+  background: ${(props) => props.$bgColor == 'verde' ? '#43523A' : '#ffffff'};
+  color: ${(props) => props.$bgColor === 'verde' ? '#ffffff' : '#1a1a1a'};
 `;
 
 function SquareCard({ squareData }) {
@@ -33,7 +33,7 @@ function SquareCard({ squareData }) {
         return (
           <Card 
             key={i} 
-            bgColor={item.bgColor}
+            $bgColor={item.bgColor}
             onClick={isButton ? item.action : undefined}
             style={{ cursor: isButton ? 'pointer' : 'default' }}
           >

@@ -18,7 +18,8 @@
     "react-phone-number-input": "^3.4.16",
     "react-router-dom": "^7.14.1",
     "recharts": "^3.8.1",
-    "styled-components": "^6.1.19"
+    "styled-components": "^6.1.19",
+    "sweetalert2": "^11.26.24"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

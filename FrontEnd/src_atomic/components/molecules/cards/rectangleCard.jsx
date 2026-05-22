@@ -17,8 +17,8 @@ const Card = styled.div`
   border-radius: 5px;
 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background: ${(props) => props.bgColor == 'verde' ? '#43523A' : '#ffffff'};
-  color: ${(props) => props.bgColor === 'verde' ? '#ffffff' : '#343434'};
+  background: ${(props) => props.$bgColor == 'verde' ? '#43523A' : '#ffffff'};
+  color: ${(props) => props.$bgColor === 'verde' ? '#ffffff' : '#343434'};
 
   p, h5{
     width: 280px;
@@ -51,7 +51,7 @@ function RectangleCard({ rectangleData }) {
   return (
     <CardsContainer>
       {rectangleData.map((item, i) => (
-        <Card key={i} bgColor={item.bgColor}>
+        <Card key={i} $bgColor={item.bgColor}>
           <CardTitle>
             <i className={item.icono}></i>
             <h5>{item.titulo}</h5>
