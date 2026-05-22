@@ -12,12 +12,11 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
 RUN npm run build
 
-# --- ETAPA DE EJECUCIÓN (SIN NGINX) ---
-# Instalamos un servidor estático ligero globalmente en Node
-RUN npm install -g serve
+# --- ETAPA DE EJECUCIÓN ---
+# Exponemos el puerto 3000 (seguro para Linux/Alpine)
+EXPOSE 3000
 
-EXPOSE 80
-
-# Ejecutamos 'serve' apuntando a la carpeta de compilación 
-# La bandera "-s" reenvía las rutas al index.html para evitar el error 404
-CMD ["serve", "-s", "dist", "-l", "80"]
+# Usamos npx para ejecutar 'serve' de forma directa.
+# "-s" activa el modo Single Page Application (redirecciona todas tus rutas al index.html).
+# "-l 3000" le dice que escuche específicamente en el puerto 3000.
+CMD ["npx", "serve", "-s", "dist", "-l", "3000"]
