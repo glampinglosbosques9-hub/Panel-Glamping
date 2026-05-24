@@ -67,6 +67,7 @@ const Table = styled.table`
 
   button.columnClick {
     background: #28a745;
+    width: 100%;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -89,7 +90,7 @@ function TablaGeneral({ data, acciones, onEdit, onDelete, onActive, hideActions,
   }
 
   // Se filtran todas las columnas que terminen en _id
-  const columnas = Object.keys(data[0]).filter(col => !col.endsWith('_id'));
+  const columnas = Object.keys(data[0]).filter(col => !col.endsWith('_id') && !col.endsWith('_url'));
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -131,7 +132,7 @@ function TablaGeneral({ data, acciones, onEdit, onDelete, onActive, hideActions,
 
                       if (onColumnClick && onColumnClick[col]) {
                         return (
-                          <button 
+                          <button
                             className="columnClick"
                             onClick={() => onColumnClick[col](fila)}
                           >

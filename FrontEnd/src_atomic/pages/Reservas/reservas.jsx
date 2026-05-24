@@ -20,6 +20,7 @@ from "./componentsData/reservasSearch";
 import ModalClientes from "./modales/modalClientes";
 import ModalPaquete from "./modales/modalPaquete";
 import ModalEditar from "./modales/modalEditar";
+import ModalComprobante from "./modales/modalComprobante";
 
 const CardsCont = styled.div`
   margin: 50px 0;
@@ -47,6 +48,7 @@ function Reservas({ modulo }) {
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedReserva, setSelectedReserva] = useState(null);
+  const [selectedComprobante, setSelectedComprobante] = useState(null);
 
   const [reservas, setReservas] = useState(null);
   const { displayData, setFilterMode, fetchFilters } = useFilters(
@@ -76,6 +78,10 @@ function Reservas({ modulo }) {
   const handlePackageClick = (fila) => {
     setSelectedPackage(fila);
   };
+
+  const handleFacturaClick = (fila) => {
+    setSelectedComprobante(fila);
+  };
   
   const editarReserva = (reserva) => {
     setSelectedReserva(reserva);
@@ -86,6 +92,7 @@ function Reservas({ modulo }) {
     setSelectedClient(null);
     setSelectedPackage(null);
     setSelectedReserva(null);
+    setSelectedComprobante(null);
   };
 
   const eliminarReserva = (reserva) => {
@@ -108,7 +115,8 @@ function Reservas({ modulo }) {
 
   const onColumnClickHandlers = {
     cliente: handleClientClick,
-    paquete: handlePackageClick
+    paquete: handlePackageClick,
+    'Pago restante': handleFacturaClick
   };
 
   return (
@@ -143,6 +151,13 @@ function Reservas({ modulo }) {
       {selectedPackage && (
         <ModalPaquete
           id={selectedPackage.paquete_id}
+          onClose={closeMenu}
+        />
+      )}
+
+      {selectedComprobante && (
+        <ModalComprobante
+          reserva={selectedComprobante}
           onClose={closeMenu}
         />
       )}
