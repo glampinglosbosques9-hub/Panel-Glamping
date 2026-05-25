@@ -100,6 +100,23 @@ export const updateReservation = async (req, res) => {
   }
 };
 
+export const updateReservationStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado } = req.body;
+    
+    const result = await pool.query(reservation.updateReservationStatus, [estado, id]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Reserva no encontrada" });
+    }
+
+    res.json({ message: "Estado actualizado", data: result.rows[0] });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const activateReservation = async (req, res) => {
   try {
     const { id } = req.params; // reserva_id

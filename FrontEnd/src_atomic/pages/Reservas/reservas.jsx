@@ -95,15 +95,6 @@ function Reservas({ modulo }) {
     setSelectedComprobante(null);
   };
 
-  const eliminarReserva = (reserva) => {
-    deleteUtils.eliminarRegistro(
-      "reservations",
-      reserva.id,
-      "reserva de: " + reserva.cliente,
-      handleFetchData,
-    );
-  };
-
   const activarReserva = (reserva) => {
     activateUtils.activarRegistro(
       "reservations",
@@ -117,6 +108,35 @@ function Reservas({ modulo }) {
     cliente: handleClientClick,
     paquete: handlePackageClick,
     'Pago restante': handleFacturaClick
+  };
+
+  const handleStateChange = async (reserva, nuevoEstado) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/reservations/updateStatus/${reserva.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ estado: nuevoEstado }),
+      });
+
+      if (response.ok) {
+        handleFetchData();
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("Error actualizando el estado:", error);
+      alert("Error actualizando el estado");
+    }
+  };
+
+  const stateChangeConfig = {
+    col: 'estado',
+    options: ['por evaluar', 'Aceptado', 'Cancelado', 'Pago invalido'],
+    onChange: handleStateChange
   };
 
   return (
@@ -137,7 +157,7 @@ function Reservas({ modulo }) {
           onColumnClick={onColumnClickHandlers}
           onActive={activarReserva}
           onEdit={editarReserva}
-          onDelete={eliminarReserva}
+          onStateChange={stateChangeConfig}
         />
       )}
 

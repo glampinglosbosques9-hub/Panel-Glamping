@@ -1,4 +1,4 @@
-import Router from "express";
+import { Router } from "express";
 import { login, createLogin, sendVerificationCode, sendResetCode, resetPassword } from "../controllers/login.controller.js";
 
 const router = Router();

@@ -77,7 +77,7 @@ const Table = styled.table`
   }
 `;
 
-function TablaGeneral({ data, acciones, onEdit, onDelete, onActive, hideActions, onColumnClick }) {
+function TablaGeneral({ data, acciones, onEdit, onDelete, onActive, hideActions, onColumnClick, onStateChange }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8; // Adjust rows per page for better view
 
@@ -138,6 +138,20 @@ function TablaGeneral({ data, acciones, onEdit, onDelete, onActive, hideActions,
                           >
                             {formattedValue}
                           </button>
+                        );
+                      }
+
+                      if (onStateChange && onStateChange.col === col) {
+                        return (
+                          <select 
+                            value={valor} 
+                            onChange={(e) => onStateChange.onChange(fila, e.target.value)}
+                            style={{ padding: '5px', borderRadius: '5px', border: '1px solid #ccc' }}
+                          >
+                            {onStateChange.options.map((opt, k) => (
+                              <option key={k} value={opt}>{opt}</option>
+                            ))}
+                          </select>
                         );
                       }
 

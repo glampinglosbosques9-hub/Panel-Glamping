@@ -220,19 +220,25 @@ SELECT
 FROM clientes c
 
 -------------------------- Views de reservas -----------------------------
-CREATE VIEW vista_reservas AS
+CREATE OR REPLACE VIEW vista_reservas AS
 SELECT 
-	r.reserva_id AS ID,
-	p.nombre AS Paquete,
-	c.nombre AS Cliente,
-	r.fecha_registro AS fecha,
-	r.llegada,
-	r.salida,
-	r.estado,
-	r.por_pagar AS "Pago restante"
+    r.reserva_id AS ID,
+    f.factura_id,
+    r.cliente_id,
+    r.paquete_id,
+    tp.nombre AS Paquete,
+    c.nombre AS Cliente,
+    r.fecha_registro AS fecha,
+    r.llegada,
+    r.salida,
+    r.estado,
+    r.por_pagar AS "Pago restante",
+    r.factura_url AS factura_url
 FROM Reservas r
+JOIN facturas f ON f.reserva_id = r.reserva_id
 JOIN Clientes c ON c.cliente_id = r.cliente_id
-JOIN Paquetes p ON p.paquete_id = r.paquete_id;
+JOIN Paquetes p ON p.paquete_id = r.paquete_id  -- <--- Cambiar de p.paquete_id a r.paquete_id
+JOIN tipo_paquete tp ON tp.tipo_id = p.tipo_id;
 
 CREATE VIEW vista_reservas_revenue AS
 SELECT

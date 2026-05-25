@@ -9,7 +9,7 @@ export const login = async (req, res) => {
   try {
     const { email, contrasena } = req.body;
 
-    const result = await pool.query(loginModel.login, 
+    const result = await pool.query(loginModel.login,
       [email]
     );
 
@@ -26,20 +26,20 @@ export const login = async (req, res) => {
 
     const token = jwt.sign(
       {
-        usuario_id: usuario.usuario_id, 
+        usuario_id: usuario.usuario_id,
         email: usuario.email,
         nombre: usuario.usuario_nombre,
         rol: usuario.rol_nombre
       },
       process.env.JWT_SECRET,
-      {expiresIn: '8h'}
+      { expiresIn: '8h' }
     );
 
     res.json({
       message: "Login exitoso",
       token,
-      user: { 
-        id: usuario.usuario_id, 
+      user: {
+        id: usuario.usuario_id,
         email: usuario.email,
         nombre: usuario.usuario_nombre,
         rol: usuario.rol_nombre
@@ -106,7 +106,7 @@ export const createLogin = async (req, res) => {
 
     // 1. Buscar el usuario
     const userResult = await pool.query(
-      selectUser.selectUser, 
+      selectUser.selectUser,
       [tipo_identificacion, numero_identificacion]
     );
 
@@ -123,7 +123,7 @@ export const createLogin = async (req, res) => {
 
     // 3. Crear el login
     const response = await pool.query(
-      loginModel.createLogin, 
+      loginModel.createLogin,
       [usuario_id, email, encriptedPassword]
     );
 
@@ -192,7 +192,7 @@ export const resetPassword = async (req, res) => {
     const encriptedPassword = await bcrypt.hash(contrasena, 10);
 
     const response = await pool.query(
-      loginModel.restoreLogin, 
+      loginModel.restoreLogin,
       [encriptedPassword, email]
     );
 

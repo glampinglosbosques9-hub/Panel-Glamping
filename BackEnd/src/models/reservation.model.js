@@ -32,6 +32,12 @@ export const reservation = {
     WHERE reserva_id = $3
     RETURNING *;
   `,
+  updateReservationStatus: `
+    UPDATE reservas
+    SET estado = $1
+    WHERE reserva_id = $2
+    RETURNING reserva_id, estado
+  `,
   deleteReservation: `
     UPDATE reservas
     SET estado = 'Cancelado'

@@ -135,7 +135,8 @@ CREATE TABLE Reservas (
     Llegada DATE NOT NULL,
     Salida DATE NOT NULL,
     Estado VARCHAR(50) DEFAULT 'Activo',
-    Por_pagar DECIMAL(10,2) NOT NULL -- a diferencia de facturas, este valor se actualiza con cada pago
+    Por_pagar DECIMAL(10,2) NOT NULL, -- a diferencia de facturas, este valor se actualiza con cada pago
+    Factura_URL TEXT
 );
 
 CREATE TABLE Facturas (
